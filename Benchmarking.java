@@ -1,7 +1,7 @@
 import java.util.*;
 import java.io.*;
 public class Benchmarking {
-    LinkedList <Integer> dataset = new LinkedList();
+    LinkedList <Integer> dataset = new LinkedList <Integer>();
     Node tempNode;
 
     public static void sortIntoList (int newNum){
