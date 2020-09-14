@@ -1,5 +1,7 @@
 import java.util.*;
 import java.io.*;
+import java.lang.Math; 
+
 public class Benchmarking {
     public static LinkedList <Integer> dataset = new LinkedList <Integer>();
 
@@ -7,26 +9,24 @@ public class Benchmarking {
     //finds the middle of the linked list whether size is divisible by 2 or not 
     //then determines if the newNum is greater than or less than the middle value
     //returns the middleindex or zero 
-    public static int findStartingIndex(int newNum) {
-        if ((dataset.size())%2 == 0){
-            if (dataset.get((dataset.size() / 2) - 1) <= newNum){
-                return (dataset.size() / 2) - 1;
-            }
-            return 0;
-        }
-        else{
-            if (dataset.get(((dataset.size() - 1) / 2) + 1) <= newNum){
-                return ((dataset.size() - 1) / 2) + 1;
-            }
-            return 0;
-        }
+    public static int findMiddleIndex() {
+        return (int) Math.ceil(dataset.size()/2);
     }
 
     //finds the correct location for the new value
-    public static int locateSortedSpot (int startingIndex, int newNum){
+    public static int locateSortedSpot (int middleIndex, int newNum){
+        int startingIndex;
+
+        if(newNum >= dataset.get(middleIndex)){
+            startingIndex = middleIndex;
+        }
+        else{
+            startingIndex = 0;
+        }
+
         for (int i = startingIndex; i < dataset.size() - 1; i++){
             if (newNum <= dataset.get(i)){
-                return i-1;
+                return i;
             } 
         }
         return dataset.size();
@@ -48,7 +48,7 @@ public class Benchmarking {
             }
         }
         else{
-            int middleIndex = findStartingIndex(newNum);
+            int middleIndex = findMiddleIndex();
             int newIndex = locateSortedSpot(middleIndex, newNum);
             dataset.add(newIndex, newNum);
         }
@@ -58,7 +58,7 @@ public class Benchmarking {
 
         // either uses the command line file specified or asks the user what file they would like to use 
         File f;
-        if ((args.length == 2)){
+        if ((args.length == 1)){
             f = new File(args[0]);
         }else{
             Scanner consoleScanner = new Scanner (System.in);
@@ -71,14 +71,15 @@ public class Benchmarking {
         //includes Systme.nanoTime() for algorithm timing 
         Scanner fileScanner  = new Scanner(f);
 
-        long start = System.nanoTime();
+        double start = System.nanoTime();
         while (fileScanner.hasNextInt()){
             instertIntoList(fileScanner.nextInt());
+            //System.out.println(dataset.toString());
         }
         fileScanner.close();
-        long end = System.nanoTime();
+        double end = System.nanoTime();
 
-        long totalTime = (end - start);
+        double totalTime = (end - start)/1000000000.0;
 
         //testing 
         System.out.println(dataset.toString());
