@@ -4,14 +4,9 @@ import java.lang.Math;
 
 public class Benchmarking {
     public static LinkedList <Integer> dataset = new LinkedList <Integer>();
-
-
-    //finds the middle of the linked list whether size is divisible by 2 or not 
-    //then determines if the newNum is greater than or less than the middle value
-    //returns the middleindex or zero 
-    public static int findMiddleIndex() {
-        return (int) Math.ceil(dataset.size()/2);
-    }
+    public static int min;
+    public static int max;
+    public static int median;
 
     //finds the correct location for the new value
     public static int locateSortedSpot (int middleIndex, int newNum){
@@ -48,10 +43,36 @@ public class Benchmarking {
             }
         }
         else{
-            int middleIndex = findMiddleIndex();
+            int middleIndex = (int) Math.ceil(dataset.size()/2); //uses ceiling function in java Math in case there is an uneven size
             int newIndex = locateSortedSpot(middleIndex, newNum);
             dataset.add(newIndex, newNum);
         }
+    }
+
+    public static void reportStats(){
+        //finds minimum value in dataset 
+        double start_min = System.nanoTime();
+        int min = dataset.getFirst();
+        System.out.println("Min: " + min);
+        double end_min = System.nanoTime();
+        double time_min = (end_min - start_min)/1000000000.0;
+        System.out.println("time_min: " + time_min + " seconds");
+
+        //finds maximum value in dataset 
+        double start_max = System.nanoTime();
+        int max = dataset.getLast();
+        System.out.println("Max: " + max);
+        double end_max = System.nanoTime();
+        double time_max = (end_max - start_max)/1000000000.0;
+        System.out.println("time_max: " + time_max + " seconds");
+
+        //finds median value in dataset
+        double start_median = System.nanoTime();
+        int median = dataset.get((int) Math.ceil(dataset.size()/2));
+        System.out.println("Median: " + median);
+        double end_median = System.nanoTime();
+        double time_median = (end_median - start_median)/1000000000.0;
+        System.out.println("time_median: " + time_median + " seconds");
     }
 
     public static void main(String[] args) throws FileNotFoundException{
@@ -78,11 +99,12 @@ public class Benchmarking {
         }
         fileScanner.close();
         double end = System.nanoTime();
+        double time_insert = (end - start)/1000000000.0;
 
-        double totalTime = (end - start)/1000000000.0;
+        //reports on time taken to insert numbers 
+        //reports min,time_min,max,time_max,median,time_median
+        System.out.println("time_insert: " + time_insert + " seconds");
+        reportStats();
 
-        //testing 
-        System.out.println(dataset.toString());
-        System.out.println(totalTime);
     }
 }
