@@ -24,6 +24,7 @@ public class Benchmarking {
                 return i;
             } 
         }
+
         return dataset.size();
     }
 
@@ -105,6 +106,7 @@ public class Benchmarking {
         //reports min,time_min,max,time_max,median,time_median
         System.out.println("time_insert: " + time_insert + " seconds");
         reportStats();
+
 
     }
 }
