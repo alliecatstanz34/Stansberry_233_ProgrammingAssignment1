@@ -1,3 +1,11 @@
+
+/*
+Name: Allison Stansberry
+CPT_S 233: Programming Assignment #1
+Date: 09/14/2020
+GIT Repo URL: https://github.com/alliecatstanz34/Stansberry_233_ProgrammingAssignment1   
+*/
+
 import java.util.*;
 import java.io.*;
 import java.lang.Math; 
